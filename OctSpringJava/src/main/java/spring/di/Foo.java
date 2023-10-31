@@ -7,6 +7,14 @@ public class Foo {
 	int i;
 	String str;
 	
+	public Foo(String s1, String s2) {
+		System.out.println("String, String 생성자 실행");
+	}
+	
+	public Foo(int s1, String s2) {
+		System.out.println("int, String 생성자 실행");
+	}
+	
 	public Foo(Bar bar, Baz baz) {
 		this.bar = bar;
 		this.baz = baz;

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:p="http://www.springframework.org/schema/p"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans 
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <bean id="bar" class="spring.di.Bar"/>
-<bean id="baz" class="spring.di.Baz"/>
+<bean id="baz" class="spring.di.Baz"
+	init-method="start" destroy-method="stop"
+/>
+<bean id="bar2" class="spring.di.Bar" autowire-candidate="false"/>
+
+
 <bean id="foo1" class="spring.di.Foo">
 	<constructor-arg>
 		<ref bean="bar"/>
@@ -22,5 +28,39 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
 	</constructor-arg>
 	<constructor-arg value="엄준식"></constructor-arg>
 </bean>
+
+<bean id="foo3" class="spring.di.Foo">
+	<constructor-arg>
+		<value type="int">10</value>
+	</constructor-arg>
+	<constructor-arg>
+		<value>banana</value>
+	</constructor-arg>
+</bean>
+
+<bean id="fooo1" class="spring.di.Fooo">
+	<property name="bar">  <!-- 변수명 -->
+		<ref bean="bar"/>  <!-- bean id -->
+	</property>
+	<property name="str" value="peach"/>
+	<property name="i" value="100"> </property>
+</bean>
+
+<bean id="fooo2" class="spring.di.Fooo"
+p:bar-ref="bar" p:str="mango" p:i="1000"
+/>
+
+<bean id="fooo3" class="spring.di.Fooo" p:str="grape" p:i="2333" >
+	<property name="bar" ref="bar"/>
+</bean>
+
+<bean id="fooo4" class="spring.di.Fooo" autowire="byType"
+p:str="fig" p:i="10000"
+/>
+
+<bean id="fooLookUp" class="spring.di.FooLookUp">
+	<lookup-method name="getBaz" bean="baz" />
+</bean>
+
 
 </beans>

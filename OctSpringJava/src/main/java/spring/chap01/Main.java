@@ -13,8 +13,14 @@ public class Main {
 	//	Resource resource = new ClassPathResource("applicationContext.xml");
 		ApplicationContext beanFactory 
 		= new GenericXmlApplicationContext("applicationContext.xml");
+		
 		WriteArticleService articleService 
 		= (WriteArticleService) beanFactory.getBean("writeArticleService");
+		
+		WriteArticleService articleService2
+		= (WriteArticleService) beanFactory.getBean("writeArticleService2");
+		
 		articleService.write(new Article());
+		articleService2.write(new Article());
 	}
 }
